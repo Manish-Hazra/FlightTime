@@ -9,6 +9,7 @@ public class Flight {
 	private String end_time;
 	private String departure_time;
 	private String arrival_time;
+	private int stops;
 	
 	
 	public Flight() {}
@@ -18,7 +19,7 @@ public class Flight {
 	
 	
 	public Flight(String departure_city, String arrival_city, int cost, String start_time, String end_time,
-			String departure_time, String arrival_time) {
+			String departure_time, String arrival_time, int stops) {
 		super();
 		this.departure_city = departure_city;
 		this.arrival_city = arrival_city;
@@ -27,12 +28,13 @@ public class Flight {
 		this.end_time = end_time;
 		this.departure_time = departure_time;
 		this.arrival_time = arrival_time;
+		this.stops = stops;
 	}
 
 
 
 	public Flight(int id, String departure_city, String arrival_city, int cost, String start_time, String end_time,
-			String departure_time, String arrival_time) {
+			String departure_time, String arrival_time, int stops) {
 		super();
 		this.id = id;
 		this.departure_city = departure_city;
@@ -42,6 +44,7 @@ public class Flight {
 		this.end_time = end_time;
 		this.departure_time = departure_time;
 		this.arrival_time = arrival_time;
+		this.stops = stops;
 	}
 	public int getId() {
 		return id;
@@ -91,7 +94,12 @@ public class Flight {
 	public void setArrival_time(String arrival_time) {
 		this.arrival_time = arrival_time;
 	}
-	
+	public int getStop() {
+		return stops;
+	}
+	public void setStop(int stops) {
+		this.stops = stops;
+	}
 	
 	
 

@@ -44,6 +44,11 @@
 				<a href="<%=request.getContextPath()%>/filtercitypage" class="btn btn-warning">Filter</a>
 			</div>
 			<br>
+			<div class="container text-right">
+
+				<a href="<%=request.getContextPath()%>/sortlo" class="btn btn-warning">Sort By Stops</a>
+			</div>
+			<br>
 			<table class="table table-bordered">
 				<thead>
 					<tr>
@@ -53,6 +58,7 @@
 						<th>Cost</th>
 						<th>Departure Time</th>
 						<th>Arrival Time</th>
+						<th>Stops</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -66,6 +72,7 @@
 							<td><c:out value="${listFlight.cost}" /></td>
 							<td><c:out value="${listFlight.departure_time}" /></td>
 							<td><c:out value="${listFlight.arrival_time}" /></td>
+							<td><c:out value="${listFlight.stops}" /></td>
 						</tr>
 					</c:forEach>
 		

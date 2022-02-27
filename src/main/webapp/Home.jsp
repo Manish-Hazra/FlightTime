@@ -13,8 +13,7 @@
 <body>
 
 	<header>
-		<nav class="navbar navbar-expand-md navbar-dark"
-			style="background-color: blue">
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark">
 			<div>
 				<a href="/UserManagement" class="navbar-brand"> Travel Thru Air </a>
 			</div>
@@ -29,7 +28,7 @@
 	</header>
 	<br>
 
-	 <div class="landing-page" style="background: white url('https://images.pexels.com/photos/62623/wing-plane-flying-airplane-62623.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940') no-repeat scroll center; background-size: cover; height: 100vh; color: #c8cfcf;">
+	 <div class="landing-page" style="background: white url('https://images.unsplash.com/photo-1611610034804-3216fd316c11?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YWlybGluZXxlbnwwfHwwfHw%3D&w=1000&q=80?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940') no-repeat scroll center; background-size: cover; height: 85vh; color: #c8cfcf;">
                 <div class="wrapper" style="background-color: rgba(0,0,0,0.7); height: 100%">
 		<div class="d-flex flex-column justify-content-center align-items-center text-center h-100" >
                         <h5 class="display-4 animated zoomIn">WELCOME TO <strong>Travel Thru Air</strong></h5>

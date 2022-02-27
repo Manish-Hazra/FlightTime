@@ -48,38 +48,24 @@
 					New Flight</a>
 			</div>
 			<br>
-			<table class="table table-bordered">
-				<thead>
-					<tr>
-						<th>ID</th>
-						<th>Departure City</th>
-						<th>Arrival City</th>
-						<th>Cost</th>
-						<th>Start Time</th>
-						<th>End Time</th>
-						<th>Departure Time</th>
-						<th>Arrival Time</th>
-						<th>Actions</th>
-					</tr>
-				</thead>
+			<table class="table">
 				<tbody>
+				<tr>
 				
 					<c:forEach var="listFlight" items="${listFlight}">
-
-						<tr>
-							<td><c:out value="${listFlight.id}" /></td>
-							<td><c:out value="${listFlight.departure_city}" /></td>
-							<td><c:out value="${listFlight.arrival_city}" /></td>
-							<td><c:out value="${listFlight.cost}" /></td>
-							<td><c:out value="${listFlight.start_time}" /></td>
-							<td><c:out value="${listFlight.end_time}" /></td>
-							<td><c:out value="${listFlight.departure_time}" /></td>
-							<td><c:out value="${listFlight.arrival_time}" /></td>
-							<td><a href="edit?id=<c:out value='${listFlight.id}' />">Edit</a>
-								&nbsp;&nbsp;&nbsp;&nbsp; <a
-								href="delete?id=<c:out value='${listFlight.id}' />">Delete</a></td>
-						</tr>
+						<td>
+						<div class="card" style="width: 16rem; display: flex;">
+						  <div class="card-body">
+						    <h5 class="card-title"><c:out value="${listFlight.departure_city}" /> - <c:out value="${listFlight.arrival_city}" /></h5>
+						    <h6 class="card-subtitle mb-2 text-muted">Rs. <c:out value="${listFlight.cost}" /></h6>
+						    <p class="card-text">Departure : <c:out value="${listFlight.departure_time}" /> . . .  Arrival : <c:out value="${listFlight.arrival_time}" /></p>
+						  </div>
+						</div>
+						
+						</td>
+						
 					</c:forEach>
+					</tr>
 		
 				</tbody>
 

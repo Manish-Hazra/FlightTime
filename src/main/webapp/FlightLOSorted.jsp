@@ -12,7 +12,7 @@
 
 <body>
 
-    <header>
+	<header>
 		<nav class="navbar navbar-expand-md navbar-dark"
 			style="background-color: blue">
 			<div>
@@ -33,7 +33,7 @@
 		<!-- <div class="alert alert-success" *ngIf='message'>{{message}}</div> -->
 
 		<div class="container">
-			<h3 class="text-center">List of Filtered Flights</h3>
+			<h3 class="text-center">All Flights</h3>
 			<hr>
 			<br>
 			<table class="table table-bordered">
@@ -50,16 +50,16 @@
 				</thead>
 				<tbody>
 				
-					<c:forEach var="filterCityFlight" items="${filterCityFlight}">
+					<c:forEach var="listFlight" items="${listFlight}">
 
 						<tr>
-							<td><c:out value="${filterCityFlight.id}" /></td>
-							<td><c:out value="${filterCityFlight.departure_city}" /></td>
-							<td><c:out value="${filterCityFlight.arrival_city}" /></td>
-							<td><c:out value="${filterCityFlight.cost}" /></td>
-							<td><c:out value="${filterCityFlight.departure_time}" /></td>
-							<td><c:out value="${filterCityFlight.arrival_time}" /></td>
-							<td><c:out value="${filterCityFlight.stops}" /></td>
+							<td><c:out value="${listFlight.id}" /></td>
+							<td><c:out value="${listFlight.departure_city}" /></td>
+							<td><c:out value="${listFlight.arrival_city}" /></td>
+							<td><c:out value="${listFlight.cost}" /></td>
+							<td><c:out value="${listFlight.departure_time}" /></td>
+							<td><c:out value="${listFlight.arrival_time}" /></td>
+							<td><c:out value="${listFlight.stops}" /></td>
 						</tr>
 					</c:forEach>
 		

@@ -18,25 +18,26 @@ import com.xadmin.usermanagement.bean.Flight;
 public class FlightDao {
 	private String jdbcURL = "jdbc:mysql://localhost:3306/flightdb?useSSL=false";
 	private String jdbcUsername = "root";
-	private String jdbcPassword = "";
+	private String jdbcPassword = "mysqldb@12345";
 
-	private static final String INSERT_FLIGHT_SQL = "INSERT INTO flight" + "  (departure_city, arrival_city, cost, start_time, end_time, departure_time, arrival_time) VALUES "
-			+ " (?, ?, ?, ?, ?,?,?);";
+	private static final String INSERT_FLIGHT_SQL = "INSERT INTO flight" + "  (departure_city, arrival_city, cost, start_time, end_time, departure_time, arrival_time, stops) VALUES "
+			+ " (?, ?, ?, ?, ?,?,?, ?);";
 
-	private static final String SELECT_FLIGHT_BY_ID = "select departure_city, arrival_city, cost, start_time, end_time, departure_time, arrival_time from flight where id =?";
+	private static final String SELECT_FLIGHT_BY_ID = "select departure_city, arrival_city, cost, start_time, end_time, departure_time, arrival_time, stops from flight where id =?";
 	private static final String SELECT_ALL_FLIGHT = "select * from flight";
+	private static final String SELECT_SORT_FLIGHT = "select * from flight order by stops";
 	private static final String DELETE_FLIGHT_SQL = "delete from flight where id = ?;";
-	private static final String UPDATE_FLIGHT_SQL = "update flight set departure_city = ?,arrival_city= ?, cost =?, start_time=?, end_time=?, departure_time=?, arrival_time=? where id = ?;";
+	private static final String UPDATE_FLIGHT_SQL = "update flight set departure_city = ?,arrival_city= ?, cost =?, start_time=?, end_time=?, departure_time=?, arrival_time=?, stops=? where id = ?;";
 	private static final String CHECK_MANAGER_SQL = "select * from manager where username = ? and password = ?";
-	private static final String SELECT_TIME_FILTER = "select id,departure_city, arrival_city, cost, start_time, end_time,departure_time,arrival_time from flight where (case when start_time<=end_time then start_time<? and end_time>? else start_time<? or end_time>? end)";
-	private static final String ONLY_DEPARTURE_DAY = "select id,departure_city, arrival_city, cost, start_time, end_time, departure_time, arrival_time from flight where departure_city=? and departure_time>'05:00:00' and departure_time<'17:00:00'" ;
-	private static final String ONLY_ARRIVAL_DAY = "select id,departure_city, arrival_city, cost, start_time, end_time, departure_time, arrival_time from flight where arrival_city=? and departure_time>'05:00:00' and departure_time<'17:00:00'";
-	private static final String DEPARTURE_AND_ARRIVAL_DAY = "select id,departure_city, arrival_city, cost, start_time, end_time, departure_time, arrival_time from flight where departure_city=? and arrival_city=? and departure_time>'05:00:00' and departure_time<'17:00:00'" ;
-	private static final String ONLY_DEPARTURE_NIGHT = "select id,departure_city, arrival_city, cost, start_time, end_time, departure_time, arrival_time from flight where departure_city=? and (departure_time>='17:00:00' or departure_time<='05:00:00')" ;
-	private static final String ONLY_ARRIVAL_NIGHT = "select id,departure_city, arrival_city, cost, start_time, end_time, departure_time, arrival_time from flight where arrival_city=? and (departure_time>='17:00:00' or departure_time<='05:00:00')";
-	private static final String DEPARTURE_AND_ARRIVAL_NIGHT = "select id,departure_city, arrival_city, cost, start_time, end_time, departure_time, arrival_time from flight where departure_city=? and arrival_city=? and (departure_time>='17:00:00' or departure_time<='05:00:00')" ;
-	private static final String ONLY_DAY = "select id,departure_city, arrival_city, cost, start_time, end_time, departure_time, arrival_time from flight where departure_time>'05:00:00' and departure_time<'17:00:00'";
-	private static final String ONLY_NIGHT="select id,departure_city, arrival_city, cost, start_time, end_time, departure_time, arrival_time from flight where departure_time>='17:00:00' or departure_time<='05:00:00'";
+	private static final String SELECT_TIME_FILTER = "select id,departure_city, arrival_city, cost, start_time, end_time,departure_time,arrival_time,stops from flight where (case when start_time<=end_time then start_time<? and end_time>? else start_time<? or end_time>? end)";
+	private static final String ONLY_DEPARTURE_DAY = "select id,departure_city, arrival_city, cost, start_time, end_time, departure_time, arrival_time,stops from flight where departure_city=? and departure_time>'05:00:00' and departure_time<'17:00:00'" ;
+	private static final String ONLY_ARRIVAL_DAY = "select id,departure_city, arrival_city, cost, start_time, end_time, departure_time, arrival_time,stops from flight where arrival_city=? and departure_time>'05:00:00' and departure_time<'17:00:00'";
+	private static final String DEPARTURE_AND_ARRIVAL_DAY = "select id,departure_city, arrival_city, cost, start_time, end_time, departure_time, arrival_time,stops from flight where departure_city=? and arrival_city=? and departure_time>'05:00:00' and departure_time<'17:00:00'" ;
+	private static final String ONLY_DEPARTURE_NIGHT = "select id,departure_city, arrival_city, cost, start_time, end_time, departure_time, arrival_time,stops from flight where departure_city=? and (departure_time>='17:00:00' or departure_time<='05:00:00')" ;
+	private static final String ONLY_ARRIVAL_NIGHT = "select id,departure_city, arrival_city, cost, start_time, end_time, departure_time, arrival_time,stops from flight where arrival_city=? and (departure_time>='17:00:00' or departure_time<='05:00:00')";
+	private static final String DEPARTURE_AND_ARRIVAL_NIGHT = "select id,departure_city, arrival_city, cost, start_time, end_time, departure_time, arrival_time,stops from flight where departure_city=? and arrival_city=? and (departure_time>='17:00:00' or departure_time<='05:00:00')" ;
+	private static final String ONLY_DAY = "select id,departure_city, arrival_city, cost, start_time, end_time, departure_time, arrival_time,stops from flight where departure_time>'05:00:00' and departure_time<'17:00:00'";
+	private static final String ONLY_NIGHT="select id,departure_city, arrival_city, cost, start_time, end_time, departure_time, arrival_time,stops from flight where departure_time>='17:00:00' or departure_time<='05:00:00'";
 	public FlightDao() {
 	}
 
@@ -67,6 +68,7 @@ public class FlightDao {
 			preparedStatement.setString(5, flight.getEnd_time());
 			preparedStatement.setString(6, flight.getDeparture_time());
 			preparedStatement.setString(7, flight.getArrival_time());
+			preparedStatement.setInt(8, flight.getStop());
 			System.out.println(preparedStatement);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
@@ -118,7 +120,8 @@ public class FlightDao {
 				String end_time = rs.getString("end_time");
 				String departure_time = rs.getString("departure_time");
 				String arrival_time = rs.getString("arrival_time");
-				flight = new Flight(id, departure_city, arrival_city, cost, start_time, end_time, departure_time, arrival_time);
+				int stops = rs.getInt("stops");
+				flight = new Flight(id, departure_city, arrival_city, cost, start_time, end_time, departure_time, arrival_time, stops);
 			}
 		} catch (SQLException e) {
 			printSQLException(e);
@@ -149,7 +152,40 @@ public class FlightDao {
 				String end_time = rs.getString("end_time");
 				String departure_time = rs.getString("departure_time");
 				String arrival_time = rs.getString("arrival_time");
-				flights.add(new Flight(id, departure_city, arrival_city, cost, start_time, end_time, departure_time,arrival_time));
+				int stops = rs.getInt("stops");
+				flights.add(new Flight(id, departure_city, arrival_city, cost, start_time, end_time, departure_time,arrival_time,stops));
+			}
+		} catch (SQLException e) {
+			printSQLException(e);
+		}
+		return flights;
+	}
+	
+	public List<Flight> sortLegs() {
+
+		// using try-with-resources to avoid closing resources (boiler plate code)
+		List<Flight> flights = new ArrayList<>();
+		// Step 1: Establishing a Connection
+		try (Connection connection = getConnection();
+
+				// Step 2:Create a statement using connection object
+			PreparedStatement preparedStatement = connection.prepareStatement(SELECT_SORT_FLIGHT);) {
+			System.out.println(preparedStatement);
+			// Step 3: Execute the query or update query
+			ResultSet rs = preparedStatement.executeQuery();
+
+			// Step 4: Process the ResultSet object.
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String departure_city = rs.getString("departure_city");
+				String arrival_city = rs.getString("arrival_city");
+				int cost = rs.getInt("cost");
+				String start_time = rs.getString("start_time");
+				String end_time = rs.getString("end_time");
+				String departure_time = rs.getString("departure_time");
+				String arrival_time = rs.getString("arrival_time");
+				int stops = rs.getInt("stops");
+				flights.add(new Flight(id, departure_city, arrival_city, cost, start_time, end_time, departure_time,arrival_time,stops));
 			}
 		} catch (SQLException e) {
 			printSQLException(e);
@@ -190,7 +226,8 @@ public class FlightDao {
 				String end_time = rs.getString("end_time");
 				String departure_time = rs.getString("departure_time");
 				String arrival_time = rs.getString("arrival_time");
-				flights.add(new Flight(id, departure_city, arrival_city, cost, start_time, end_time,departure_time,arrival_time));
+				int stops = rs.getInt("stops");
+				flights.add(new Flight(id, departure_city, arrival_city, cost, start_time, end_time,departure_time,arrival_time,stops));
 			}
 		} catch (SQLException e) {
 			printSQLException(e);
@@ -222,7 +259,8 @@ public class FlightDao {
 				String end_time = rs.getString("end_time");
 				String departure_time = rs.getString("departure_time");
 				String arrival_time = rs.getString("arrival_time");
-				flights.add(new Flight(id, departure_city, arrival_city, cost, start_time, end_time,departure_time,arrival_time));
+				int stops = rs.getInt("stops");
+				flights.add(new Flight(id, departure_city, arrival_city, cost, start_time, end_time,departure_time,arrival_time,stops));
 			}
 		} catch (SQLException e) {
 			printSQLException(e);
@@ -253,7 +291,8 @@ public class FlightDao {
 				String end_time = rs.getString("end_time");
 				String departure_time = rs.getString("departure_time");
 				String arrival_time = rs.getString("arrival_time");
-				flights.add(new Flight(id, departure_city, arrival_city, cost, start_time, end_time,departure_time,arrival_time));
+				int stops = rs.getInt("stops");
+				flights.add(new Flight(id, departure_city, arrival_city, cost, start_time, end_time,departure_time,arrival_time,stops));
 			}
 		} catch (SQLException e) {
 			printSQLException(e);
@@ -288,7 +327,8 @@ public class FlightDao {
 				String end_time = rs.getString("end_time");
 				String departure_time = rs.getString("departure_time");
 				String arrival_time = rs.getString("arrival_time");
-				flights.add(new Flight(id, departure_city, arrival_city, cost, start_time, end_time,departure_time,arrival_time));
+				int stops = rs.getInt("stops");
+				flights.add(new Flight(id, departure_city, arrival_city, cost, start_time, end_time,departure_time,arrival_time,stops));
 			}
 		} catch (SQLException e) {
 			printSQLException(e);
@@ -319,7 +359,8 @@ public class FlightDao {
 				String end_time = rs.getString("end_time");
 				String departure_time = rs.getString("departure_time");
 				String arrival_time = rs.getString("arrival_time");
-				flights.add(new Flight(id, departure_city, arrival_city, cost, start_time, end_time,departure_time,arrival_time));
+				int stops = rs.getInt("stops");
+				flights.add(new Flight(id, departure_city, arrival_city, cost, start_time, end_time,departure_time,arrival_time,stops));
 			}
 		} catch (SQLException e) {
 			printSQLException(e);
@@ -353,7 +394,8 @@ public class FlightDao {
 				String end_time = rs.getString("end_time");
 				String departure_time = rs.getString("departure_time");
 				String arrival_time = rs.getString("arrival_time");
-				flights.add(new Flight(id, departure_city, arrival_city, cost, start_time, end_time,departure_time,arrival_time));
+				int stops = rs.getInt("stops");
+				flights.add(new Flight(id, departure_city, arrival_city, cost, start_time, end_time,departure_time,arrival_time,stops));
 			}
 		} catch (SQLException e) {
 			printSQLException(e);
@@ -386,7 +428,8 @@ public class FlightDao {
 				String end_time = rs.getString("end_time");
 				String departure_time = rs.getString("departure_time");
 				String arrival_time = rs.getString("arrival_time");
-				flights.add(new Flight(id, departure_city, arrival_city, cost, start_time, end_time,departure_time,arrival_time));
+				int stops = rs.getInt("stops");
+				flights.add(new Flight(id, departure_city, arrival_city, cost, start_time, end_time,departure_time,arrival_time,stops));
 			}
 		} catch (SQLException e) {
 			printSQLException(e);
@@ -416,7 +459,8 @@ public class FlightDao {
 				String end_time = rs.getString("end_time");
 				String departure_time = rs.getString("departure_time");
 				String arrival_time = rs.getString("arrival_time");
-				flights.add(new Flight(id, departure_city, arrival_city, cost, start_time, end_time,departure_time,arrival_time));
+				int stops = rs.getInt("stops");
+				flights.add(new Flight(id, departure_city, arrival_city, cost, start_time, end_time,departure_time,arrival_time,stops));
 			}
 		} catch (SQLException e) {
 			printSQLException(e);
@@ -447,7 +491,8 @@ public class FlightDao {
 				String end_time = rs.getString("end_time");
 				String departure_time = rs.getString("departure_time");
 				String arrival_time = rs.getString("arrival_time");
-				flights.add(new Flight(id, departure_city, arrival_city, cost, start_time, end_time,departure_time,arrival_time));
+				int stops = rs.getInt("stops");
+				flights.add(new Flight(id, departure_city, arrival_city, cost, start_time, end_time,departure_time,arrival_time,stops));
 			}
 		} catch (SQLException e) {
 			printSQLException(e);

@@ -70,6 +70,9 @@ public class FlightServlet extends HttpServlet {
 			case "/listadmin":
 				listAdmin(request,response);
 				break;
+			case "/sortlo":
+				sortLO(request,response);
+				break;
 			default:
 				listFlight(request, response);
 				break;
@@ -207,11 +210,12 @@ public class FlightServlet extends HttpServlet {
 		String departure_city = request.getParameter("departure_city");
 		String arrival_city = request.getParameter("arrival_city");
 		int cost = Integer.parseInt(request.getParameter("cost"));
+		int stops = Integer.parseInt(request.getParameter("stops"));
 		String start_time = request.getParameter("start_time");
 		String end_time = request.getParameter("end_time");
 		String departure_time = request.getParameter("departure_time");
 		String arrival_time = request.getParameter("arrival_time");
-		Flight newFlight = new Flight(departure_city, arrival_city, cost, start_time, end_time,departure_time,arrival_time );
+		Flight newFlight = new Flight(departure_city, arrival_city, cost, start_time, end_time,departure_time,arrival_time, stops );
 		FlightDao.insertFlight(newFlight);
 		response.sendRedirect("listadmin");
 	}
@@ -226,7 +230,8 @@ public class FlightServlet extends HttpServlet {
 		String end_time = request.getParameter("end_time");
 		String departure_time = request.getParameter("departure_time");
 		String arrival_time = request.getParameter("arrival_time");
-		Flight updatedFlight = new Flight(id,departure_city, arrival_city, cost, start_time, end_time,departure_time,arrival_time );
+		int stops = Integer.parseInt(request.getParameter("stops"));
+		Flight updatedFlight = new Flight(id,departure_city, arrival_city, cost, start_time, end_time,departure_time,arrival_time, stops );
 		FlightDao.updateFlight(updatedFlight);
 		response.sendRedirect("listadmin");
 	}
@@ -236,6 +241,15 @@ public class FlightServlet extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 		FlightDao.deleteFlight(id);
 		response.sendRedirect("listadmin");
+
+	}
+	private void sortLO(HttpServletRequest request, HttpServletResponse response) 
+			throws SQLException, IOException, ServletException {
+		List<Flight> listFlight = FlightDao.sortLegs();
+		System.out.println("11");
+		request.setAttribute("listFlight", listFlight);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("FlightLOSorted.jsp");
+		dispatcher.forward(request, response);
 
 	}
 
