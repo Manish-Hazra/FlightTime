@@ -98,7 +98,6 @@
 						value="<c:out value='${flight.arrival_time}' />" class="form-control"
 						name="arrival_time">
 				</fieldset>
-				</fieldset>
 				
 					<fieldset class="form-group">
 					<label>Stops</label> <input type="text"

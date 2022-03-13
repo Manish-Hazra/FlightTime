@@ -210,11 +210,11 @@ public class FlightServlet extends HttpServlet {
 		String departure_city = request.getParameter("departure_city");
 		String arrival_city = request.getParameter("arrival_city");
 		int cost = Integer.parseInt(request.getParameter("cost"));
-		int stops = Integer.parseInt(request.getParameter("stops"));
 		String start_time = request.getParameter("start_time");
 		String end_time = request.getParameter("end_time");
 		String departure_time = request.getParameter("departure_time");
 		String arrival_time = request.getParameter("arrival_time");
+		int stops = Integer.parseInt(request.getParameter("stops"));
 		Flight newFlight = new Flight(departure_city, arrival_city, cost, start_time, end_time,departure_time,arrival_time, stops );
 		FlightDao.insertFlight(newFlight);
 		response.sendRedirect("listadmin");

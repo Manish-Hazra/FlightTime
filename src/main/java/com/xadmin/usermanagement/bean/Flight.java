@@ -94,10 +94,10 @@ public class Flight {
 	public void setArrival_time(String arrival_time) {
 		this.arrival_time = arrival_time;
 	}
-	public int getStop() {
+	public int getStops() {
 		return stops;
 	}
-	public void setStop(int stops) {
+	public void setStops(int stops) {
 		this.stops = stops;
 	}
 	

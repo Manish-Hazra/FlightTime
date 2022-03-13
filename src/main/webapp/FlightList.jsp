@@ -59,6 +59,7 @@
 						    <h5 class="card-title"><c:out value="${listFlight.departure_city}" /> - <c:out value="${listFlight.arrival_city}" /></h5>
 						    <h6 class="card-subtitle mb-2 text-muted">Rs. <c:out value="${listFlight.cost}" /></h6>
 						    <p class="card-text">Departure : <c:out value="${listFlight.departure_time}" /> . . .  Arrival : <c:out value="${listFlight.arrival_time}" /></p>
+						    <h6 class="card-subtitle mb-2 text-muted"><c:out value="${listFlight.stops}" /></h6>
 						  </div>
 						</div>
 						

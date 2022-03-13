@@ -58,7 +58,7 @@
 							<td><c:out value="${filterFlight.cost}" /></td>
 							<td><c:out value="${filterFlight.departure_time}" /></td>
 							<td><c:out value="${filterFlight.arrival_time}" /></td>
-							<td><c:out value="${filterCityFlight.stops}" /></td>
+							<td><c:out value="${filterFlight.stops}" /></td>
 						</tr>
 					</c:forEach>
 		

@@ -21,7 +21,7 @@ public class FlightDao {
 	private String jdbcPassword = "mysqldb@12345";
 
 	private static final String INSERT_FLIGHT_SQL = "INSERT INTO flight" + "  (departure_city, arrival_city, cost, start_time, end_time, departure_time, arrival_time, stops) VALUES "
-			+ " (?, ?, ?, ?, ?,?,?, ?);";
+			+ " (?,?,?,?,?,?,?,?);";
 
 	private static final String SELECT_FLIGHT_BY_ID = "select departure_city, arrival_city, cost, start_time, end_time, departure_time, arrival_time, stops from flight where id =?";
 	private static final String SELECT_ALL_FLIGHT = "select * from flight";
@@ -68,7 +68,7 @@ public class FlightDao {
 			preparedStatement.setString(5, flight.getEnd_time());
 			preparedStatement.setString(6, flight.getDeparture_time());
 			preparedStatement.setString(7, flight.getArrival_time());
-			preparedStatement.setInt(8, flight.getStop());
+			preparedStatement.setInt(8, flight.getStops());
 			System.out.println(preparedStatement);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
